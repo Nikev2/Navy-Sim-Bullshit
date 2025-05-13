@@ -1,3 +1,7 @@
+----Adonis Bypass
+print("bypassing adonis")
+loadstring(game:HttpGet("https://raw.githubusercontent.com/Pixeluted/adoniscries/refs/heads/main/Source.lua"))()
+
 -----IN PROGRESS!!!------
 local lib = loadstring(game:HttpGet("https://raw.githubusercontent.com/zxciaz/VenyxUI/main/Reuploaded"))()
 local CoreGui = game.CoreGui
@@ -15,6 +19,24 @@ if CoreGui:FindFirstChild(name) then
     
 else
     Gui = lib.new(name)
+end
+
+function ProtectGui(GUI)
+  local PARENT = nil
+  if (not is_sirhurt_closure) and (syn and syn.protect_gui) then
+    local Main = Instance.new("ScreenGui")
+    Main.Name = randomString()
+    syn.protect_gui(Main)
+    Main.Parent = COREGUI
+    PARENT = Main
+  elseif COREGUI:FindFirstChild("RobloxGui") then
+    PARENT = COREGUI.RobloxGui
+  else
+    local Main = Instance.new("ScreenGui")
+    Main.Name = randomString()
+    Main.Parent = COREGUI
+    PARENT = Main
+  end
 end
 local ShipData = Gui:addPage("Ship Data")
 local ShipSpawner = ShipData:addSection("Ship Spawner")
@@ -218,48 +240,3 @@ function(Input)
     ChangeValueFromFile("GuiToggle", NewInput)
     Gui:Notify("Saved","Saved Value to file")
 end)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
