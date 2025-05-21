@@ -8,7 +8,33 @@ local input = game:GetService("UserInputService")
 local run = game:GetService("RunService")
 local tween = game:GetService("TweenService")
 local tweeninfo = TweenInfo.new
-
+-- Protect
+function randomString()
+	local length = math.random(10,20)
+	local array = {}
+	for i = 1, length do
+		array[i] = string.char(math.random(32, 126))
+	end
+	return table.concat(array)
+end
+function ProtectGui(GUI)
+    local PARENT = nil
+	local COREGUI = game.CoreGui
+    if (not is_sirhurt_closure) and (syn and syn.protect_gui) then
+        local Main = Instance.new("ScreenGui")
+        Main.Name = randomString()
+        syn.protect_gui(Main)
+        Main.Parent = COREGUI
+        PARENT = Main
+    elseif COREGUI:FindFirstChild("RobloxGui") then
+        PARENT = COREGUI.RobloxGui
+    else
+        local Main = Instance.new("ScreenGui")
+        Main.Name = randomString()
+        Main.Parent = COREGUI
+        PARENT = Main
+    end
+end
 -- additional
 local utility = {}
 
@@ -213,10 +239,13 @@ do
 	-- new classes
 	
 	function library.new(title)
-		local container = utility:Create("ScreenGui", {
+		(function()
+			local container = utility:Create("ScreenGui", {
 			Name = title,
-			Parent = game.CoreGui
-		}, {
+		}
+		ProtectGui(container)
+		return container
+		end)(), {
 			utility:Create("ImageLabel", {
 				Name = "Main",
 				BackgroundTransparency = 1,
