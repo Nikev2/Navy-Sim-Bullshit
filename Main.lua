@@ -274,7 +274,7 @@ RaidA52.MouseButton1Click:Connect(
     end
 )
 local Plane = nil
-local PlayerName = "WindowsXPisathing"
+local PlayerName = plr.Name
 function RegisterPlane()
     for i, k in pairs(game:GetService("Workspace").Planes:GetDescendants()) do
         if k.Name == "SeatWeld" then
