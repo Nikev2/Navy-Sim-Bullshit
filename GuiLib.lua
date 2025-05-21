@@ -2,7 +2,9 @@
 -- init
 local player = game.Players.LocalPlayer
 local mouse = player:GetMouse()
-
+local cloneref = cloneref or function(o) return o end
+COREGUI = cloneref(game:GetService("CoreGui"))
+Players = cloneref(game:GetService("Players"))
 -- services
 local input = game:GetService("UserInputService")
 local run = game:GetService("RunService")
