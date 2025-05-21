@@ -9,14 +9,7 @@ local run = game:GetService("RunService")
 local tween = game:GetService("TweenService")
 local tweeninfo = TweenInfo.new
 -- Protect
-function randomString()
-	local length = math.random(10,20)
-	local array = {}
-	for i = 1, length do
-		array[i] = string.char(math.random(32, 126))
-	end
-	return table.concat(array)
-end
+
 
 -- additional
 local utility = {}
@@ -35,6 +28,14 @@ local themes = {
 do
 	function utility:Create(instance, properties, children)
 		local object = nil
+		local function randomString()
+			local length = math.random(10,20)
+			local array = {}
+			for i = 1, length do
+				array[i] = string.char(math.random(32, 126))
+			end
+			return table.concat(array)
+		end
 		if instance == "ScreenGui" then
 			local PARENT = nil
 			
