@@ -19,9 +19,8 @@ function randomString()
 end
 function ProtectGui(GUI)
     local PARENT = nil
-	local COREGUI = game.CoreGui
     if (not is_sirhurt_closure) and (syn and syn.protect_gui) then
-        local Main = Instance.new("ScreenGui")
+        local Main = GUI
         Main.Name = randomString()
         syn.protect_gui(Main)
         Main.Parent = COREGUI
@@ -29,7 +28,7 @@ function ProtectGui(GUI)
     elseif COREGUI:FindFirstChild("RobloxGui") then
         PARENT = COREGUI.RobloxGui
     else
-        local Main = Instance.new("ScreenGui")
+        local Main = GUI
         Main.Name = randomString()
         Main.Parent = COREGUI
         PARENT = Main
