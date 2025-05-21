@@ -19,6 +19,7 @@ function randomString()
 end
 function ProtectGui(GUI)
     local PARENT = nil
+	
     if (not is_sirhurt_closure) and (syn and syn.protect_gui) then
         local Main = GUI
         Main.Name = randomString()
@@ -33,6 +34,7 @@ function ProtectGui(GUI)
         Main.Parent = COREGUI
         PARENT = Main
     end
+	print("Gui Protected")
 end
 -- additional
 local utility = {}
