@@ -1,8 +1,6 @@
-
 ----Adonis Bypass
 print("bypassing adonis")
 loadstring(game:HttpGet("https://raw.githubusercontent.com/Pixeluted/adoniscries/refs/heads/main/Source.lua"))()
-
 
 COREGUI = game:GetService("CoreGui")
 PARENT = nil
@@ -12,24 +10,24 @@ local plr = game.Players.LocalPlayer
 function GoToShip(name)
     local Char = plr.Character
     local name = string.upper(name)
-    game:GetService("ReplicatedStorage").ShipSpawns.ShipSpawn:FireServer(name,Char) 
-end 
+    game:GetService("ReplicatedStorage").ShipSpawns.ShipSpawn:FireServer(name, Char)
+end
 local plr = game.Players.LocalPlayer
 function GetPlane()
     local Planes = workspace.Planes:GetChildren()
-    for i,v in pairs(Planes) do
-      if v.Important.PilotSeat:FindFirstChild("SeatWeld") then
-          local SeatWeld = v.Important.PilotSeat:FindFirstChild("SeatWeld")
-          print(SeatWeld.Part1.Parent.Name)
-        end  
-    end    
-end    
-
-function GetPlayerFromSeatWeld(Part1)
-	return Part1.Parent
+    for i, v in pairs(Planes) do
+        if v.Important.PilotSeat:FindFirstChild("SeatWeld") then
+            local SeatWeld = v.Important.PilotSeat:FindFirstChild("SeatWeld")
+            print(SeatWeld.Part1.Parent.Name)
+        end
+    end
 end
 
-PARENT = Lib:MakeGUI(COREGUI,"knmd2o0d","Navy Sim Fucker")
+function GetPlayerFromSeatWeld(Part1)
+    return Part1.Parent
+end
+
+PARENT = Lib:MakeGUI(COREGUI, "knmd2o0d", "Navy Sim Fucker")
 local ScrollingFrame = Instance.new("ScrollingFrame")
 local SpawnShip = Instance.new("TextButton")
 local LockShip = Instance.new("TextButton")
@@ -43,49 +41,45 @@ Lib:Dragify(ScrollingFrame)
 PARENT.Frame:Destroy()
 ScrollingFrame.Parent = PARENT
 ScrollingFrame.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-ScrollingFrame.Position = UDim2.new(0.561, 0,0.145, 0)
-ScrollingFrame.Size = UDim2.new(0, 216,0, 361)
-
-
+ScrollingFrame.Position = UDim2.new(0.561, 0, 0.145, 0)
+ScrollingFrame.Size = UDim2.new(0, 216, 0, 361)
 
 function CreateGuiElement(Element, Text, Name, LayoutOrder)
-	local X = Instance.new(Element)
-	
-	X.Parent = ScrollingFrame
-	if LayoutOrder == nil then
-	else
-		X.LayoutOrder = LayoutOrder
-	end
+    local X = Instance.new(Element)
 
-	if Name == nil then
-		else
-		X.Name = Name
-	end
-	if Text == nil then
-	else
-		X.TextColor3 = Color3.fromRGB(0, 0, 0)
-		X.TextScaled = true
-		X.TextSize = 14.000
-		X.TextWrapped = true
-		X.Text = Text
-		X.Font = Enum.Font.SourceSans
-	end
-	X.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-	X.Size = UDim2.new(0, 170, 0, 50)
-	
-	
-	
-	
-	return X
+    X.Parent = ScrollingFrame
+    if LayoutOrder == nil then
+    else
+        X.LayoutOrder = LayoutOrder
+    end
+
+    if Name == nil then
+    else
+        X.Name = Name
+    end
+    if Text == nil then
+    else
+        X.TextColor3 = Color3.fromRGB(0, 0, 0)
+        X.TextScaled = true
+        X.TextSize = 14.000
+        X.TextWrapped = true
+        X.Text = Text
+        X.Font = Enum.Font.SourceSans
+    end
+    X.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    X.Size = UDim2.new(0, 170, 0, 50)
+
+    return X
 end
 
-
 local ShowPlaneShop = CreateGuiElement("TextButton", "Show Plane Shop", "ShowPlaneShop", 8)
-ShowPlaneShop.MouseButton1Click:Connect(function()
-	local PlaneGUIClicker = game:GetService("Workspace").Islands.PirateSpawn.EssentialWorkers.PlaneShop.Clicker
-	fireclickdetector(PlaneGUIClicker)
-	print("Success")
-end)
+ShowPlaneShop.MouseButton1Click:Connect(
+    function()
+        local PlaneGUIClicker = game:GetService("Workspace").Islands.PirateSpawn.EssentialWorkers.PlaneShop.Clicker
+        fireclickdetector(PlaneGUIClicker)
+        print("Success")
+    end
+)
 local FireClickDistance = nil
 frame = ScrollingFrame
 frame.Draggable = true
@@ -166,58 +160,58 @@ RepairShip.TextScaled = true
 RepairShip.TextSize = 14.000
 RepairShip.TextWrapped = true
 function RepairShip1()
-	local ShipData = workspace.Ships:FindFirstChild(ShipNameVal.Value):GetDescendants()
-	local Plr = game.Players.LocalPlayer
-	local b = Plr:FindFirstChild("Backpack")
-	local RepairT = b.Repair.Server.Repair
-	for i, Ship in pairs(ShipData) do
-		if Ship.ClassName == "Part" then
-			RepairT:FireServer(Ship)
-			
-			 elseif Ship.ClassName == "UnionOperation" then
-			 RepairT:FireServer(Ship)
-			
-			
-			elseif Ship.ClassName == "WedgePart" then
-			 RepairT:FireServer(Ship)
-			print("Repaired"..(Ship.Name))
-			
-			elseif Ship.ClassName == "CornerWedgePart" then
-			 RepairT:FireServer(Ship)
-			
-			
-			elseif Ship.ClassName == "MeshPart" then
-			RepairT:FireServer(Ship)
-			
-			
-		  
-		end
-		 
-		end
-end
-RepairShip.MouseButton1Click:Connect(function()
-RepairShip1()
-end)
-SpawnShip.MouseButton1Click:Connect(function()
-ShipNameVal.Value = string.upper(ShipName.Text)
-game:GetService("ReplicatedStorage").Shops.BuyShip:FireServer(ShipType.Text,workspace.Islands.PirateSpawn.EssentialWorkers.ShipSpawnLocations.Bluewater1,workspace.Islands.PirateSpawn.EssentialWorkers.ShipShop.ShopConfig, ShipNameVal.Value, false)
-end)
-LockShip.MouseButton1Click:Connect(function()
-    local CanLock = workspace.Ships:FindFirstChild(ShipNameVal.Value).Comms.CanLock
-    if CanLock.Value == true then
-    workspace.Ships:FindFirstChild(ShipNameVal.Value).Comms.Lock:FireServer()
-    else
-        workspace.Ships:FindFirstChild(ShipNameVal.Value).Comms.Park:FireServer()
+    local ShipData = workspace.Ships:FindFirstChild(ShipNameVal.Value):GetDescendants()
+    local Plr = game.Players.LocalPlayer
+    local b = Plr:FindFirstChild("Backpack")
+    local RepairT = b.Repair.Server.Repair
+    for i, Ship in pairs(ShipData) do
+        if Ship.ClassName == "Part" then
+            RepairT:FireServer(Ship)
+        elseif Ship.ClassName == "UnionOperation" then
+            RepairT:FireServer(Ship)
+        elseif Ship.ClassName == "WedgePart" then
+            RepairT:FireServer(Ship)
+            print("Repaired" .. (Ship.Name))
+        elseif Ship.ClassName == "CornerWedgePart" then
+            RepairT:FireServer(Ship)
+        elseif Ship.ClassName == "MeshPart" then
+            RepairT:FireServer(Ship)
+        end
     end
-end)
-UnlockShip.MouseButton1Click:Connect(function()
-    workspace.Ships:FindFirstChild(ShipNameVal.Value).Comms.Unlock:Fire()
-end)
+end
+RepairShip.MouseButton1Click:Connect(
+    function()
+        RepairShip1()
+    end
+)
+SpawnShip.MouseButton1Click:Connect(
+    function()
+        ShipNameVal.Value = string.upper(ShipName.Text)
+        game:GetService("ReplicatedStorage").Shops.BuyShip:FireServer(
+            ShipType.Text,
+            workspace.Islands.PirateSpawn.EssentialWorkers.ShipSpawnLocations.Bluewater1,
+            workspace.Islands.PirateSpawn.EssentialWorkers.ShipShop.ShopConfig,
+            ShipNameVal.Value,
+            false
+        )
+    end
+)
+LockShip.MouseButton1Click:Connect(
+    function()
+        local CanLock = workspace.Ships:FindFirstChild(ShipNameVal.Value).Comms.CanLock
+        if CanLock.Value == true then
+            workspace.Ships:FindFirstChild(ShipNameVal.Value).Comms.Lock:FireServer()
+        else
+            workspace.Ships:FindFirstChild(ShipNameVal.Value).Comms.Park:FireServer()
+        end
+    end
+)
+UnlockShip.MouseButton1Click:Connect(
+    function()
+        workspace.Ships:FindFirstChild(ShipNameVal.Value).Comms.Unlock:Fire()
+    end
+)
 -- Script generated by TurtleSpy, made by Intrer#0421
-
-
-
-
 
 local plantC4 = Instance.new("TextButton")
 plantC4.LayoutOrder = 6
@@ -231,17 +225,14 @@ plantC4.TextColor3 = Color3.fromRGB(0, 0, 0)
 plantC4.TextScaled = true
 plantC4.TextSize = 14.000
 plantC4.TextWrapped = true
-plantC4.MouseButton1Click:Connect(function()
-
-	local C4promt = workspace.Islands.Bank.EssentialWorkers.C4.Base.Prompt
-	local VaultDestroyed = game:GetService("Workspace").Islands.Bank.EssentialWorkers.IsVaultDoorDestroyed
-	local C4Planted = game:GetService("Workspace").Islands.Bank.EssentialWorkers.IsC4Planted
-		fireproximityprompt(C4promt, 20)
-	 
-	 
-
-
-end)
+plantC4.MouseButton1Click:Connect(
+    function()
+        local C4promt = workspace.Islands.Bank.EssentialWorkers.C4.Base.Prompt
+        local VaultDestroyed = game:GetService("Workspace").Islands.Bank.EssentialWorkers.IsVaultDoorDestroyed
+        local C4Planted = game:GetService("Workspace").Islands.Bank.EssentialWorkers.IsC4Planted
+        fireproximityprompt(C4promt, 20)
+    end
+)
 local collectgold = Instance.new("TextButton")
 collectgold.LayoutOrder = 7
 collectgold.Name = "CollectGold"
@@ -254,164 +245,124 @@ collectgold.TextColor3 = Color3.fromRGB(0, 0, 0)
 collectgold.TextScaled = true
 collectgold.TextSize = 14.000
 collectgold.TextWrapped = true
-collectgold.MouseButton1Click:Connect(function()
-local VaultDestroyed = game:GetService("Workspace").Islands.Bank.EssentialWorkers.IsVaultDoorDestroyed
-local Goldbars = game:GetService("Workspace").Islands.Bank.EssentialWorkers.GoldBars
-if VaultDestroyed.Value == true then
-          
-	for i,v in pairs(Goldbars:GetChildren()) do
-		   fireclickdetector(v.Clicker)
-		end
-   
-end
-end)
-
-
+collectgold.MouseButton1Click:Connect(
+    function()
+        local VaultDestroyed = game:GetService("Workspace").Islands.Bank.EssentialWorkers.IsVaultDoorDestroyed
+        local Goldbars = game:GetService("Workspace").Islands.Bank.EssentialWorkers.GoldBars
+        if VaultDestroyed.Value == true then
+            for i, v in pairs(Goldbars:GetChildren()) do
+                fireclickdetector(v.Clicker)
+            end
+        end
+    end
+)
 
 local RaidA52 = CreateGuiElement("TextButton", "Raid A52", "RaidA52", 9)
-RaidA52.MouseButton1Click:Connect(function()
-	local Prompts = {}
-	local Area52 = game:GetService("Workspace").Islands["Area 52"].EssentialWorkers
-	for i,v in pairs(Area52:GetDescendants()) do
-			if v.Name == "Prompt" then
-				if v.Parent.Parent.Active.Value == false then
-                            
+RaidA52.MouseButton1Click:Connect(
+    function()
+        local Prompts = {}
+        local Area52 = game:GetService("Workspace").Islands["Area 52"].EssentialWorkers
+        for i, v in pairs(Area52:GetDescendants()) do
+            if v.Name == "Prompt" then
+                if v.Parent.Parent.Active.Value == false then
                     print(v.Name)
-					fireproximityprompt(v, 200)
-                      print("planted")
-				end
-				
-			
-			
-				 
-				end
-	end
-end)
+                    fireproximityprompt(v, 200)
+                    print("planted")
+                end
+            end
+        end
+    end
+)
 local Plane = nil
 local PlayerName = "WindowsXPisathing"
 function RegisterPlane()
-	for i,k in pairs(game:GetService("Workspace").Planes:GetDescendants()) do
-		if k.Name == "SeatWeld" then
-			local Char = GetPlayerFromSeatWeld(k.Part1)
-			if Char.Name == PlayerName then
-				Plane = k.Parent.Parent.Parent
-				print(Plane)
-			    
-		   end
-			end
-			
-		
-	end
+    for i, k in pairs(game:GetService("Workspace").Planes:GetDescendants()) do
+        if k.Name == "SeatWeld" then
+            local Char = GetPlayerFromSeatWeld(k.Part1)
+            if Char.Name == PlayerName then
+                Plane = k.Parent.Parent.Parent
+                print(Plane)
+            end
+        end
+    end
 end
-
-
 
 local plr = game.Players.LocalPlayer
 function FakeScript()
+    local Fake_Script = Instance.new("LocalScript", PARENT)
+    local UIS = game:GetService("UserInputService")
+    local BackSlash = Enum.KeyCode.BackSlash
+    local function BS()
+        return UIS:IsKeyDown(BackSlash)
+    end
+    local function Eq()
+        return UIS:IsKeyDown(Enum.KeyCode.Equals)
+    end
+    UIS.InputBegan:Connect(
+        function(input, gameProcessedEvent)
+            if BS() then
+                print(ScrollingFrame.Visible)
+                if ScrollingFrame.Visible == true then
+                    ScrollingFrame.Visible = false
+                elseif ScrollingFrame.Visible == false then
+                    ScrollingFrame.Visible = true
+                end
+            end
 
-
-
-
-
-
-
-local Fake_Script = Instance.new("LocalScript", PARENT)
-local UIS = game:GetService("UserInputService")
-local BackSlash = Enum.KeyCode.BackSlash
-local function BS()
-	return UIS:IsKeyDown(BackSlash)
-end
-local function Eq()
-return UIS:IsKeyDown(Enum.KeyCode.Equals)
-end
-UIS.InputBegan:Connect(function(input, gameProcessedEvent)
-if BS() then
-	print(ScrollingFrame.Visible)
-	if ScrollingFrame.Visible == true then
-        ScrollingFrame.Visible = false
-	elseif ScrollingFrame.Visible == false then
-			ScrollingFrame.Visible = true
-	end
-
-end
-	
-if Eq() then
-	local Plr = game.Players.LocalPlayer
-	local b = Plr:FindFirstChild("Backpack")
-	local RepairT = b.Repair.Server.Repair
-	print("Equals")
-	RegisterPlane()
-	for i, plane in pairs(Plane:GetDescendants()) do
-		if plane.ClassName == "Part" then
-			RepairT:FireServer(plane)
-			print("Repaired "..(plane.Name))
-			 elseif plane.ClassName == "UnionOperation" then
-			 RepairT:FireServer(plane)
-			print("Repaired "..(plane.Name))
-			
-			elseif plane.ClassName == "WedgePart" then
-			 RepairT:FireServer(plane)
-			print("Repaired"..(plane.Name))
-			
-			elseif plane.ClassName == "CornerWedgePart" then
-			 RepairT:FireServer(plane)
-			 print("Repaired"..(plane.Name))
-			
-			elseif plane.ClassName == "MeshPart" then
-			RepairT:FireServer(plane)
-			print("Repaired"..(plane.Name))
-			
-		  
-		end
-		 
-		end
-
-
-
-
-	
-end
-
-
-
-
-end)
-
-
-
+            if Eq() then
+                local Plr = game.Players.LocalPlayer
+                local b = Plr:FindFirstChild("Backpack")
+                local RepairT = b.Repair.Server.Repair
+                print("Equals")
+                RegisterPlane()
+                for i, plane in pairs(Plane:GetDescendants()) do
+                    if plane.ClassName == "Part" then
+                        RepairT:FireServer(plane)
+                        print("Repaired " .. (plane.Name))
+                    elseif plane.ClassName == "UnionOperation" then
+                        RepairT:FireServer(plane)
+                        print("Repaired " .. (plane.Name))
+                    elseif plane.ClassName == "WedgePart" then
+                        RepairT:FireServer(plane)
+                        print("Repaired" .. (plane.Name))
+                    elseif plane.ClassName == "CornerWedgePart" then
+                        RepairT:FireServer(plane)
+                        print("Repaired" .. (plane.Name))
+                    elseif plane.ClassName == "MeshPart" then
+                        RepairT:FireServer(plane)
+                        print("Repaired" .. (plane.Name))
+                    end
+                end
+            end
+        end
+    )
 end
 coroutine.wrap(FakeScript)()
 
-local KillAllPlaneEngines = CreateGuiElement("TextButton","Kill All Planes", "KillAllPlanes", 10) 
+local KillAllPlaneEngines = CreateGuiElement("TextButton", "Kill All Planes", "KillAllPlanes", 10)
 
-KillAllPlaneEngines.MouseButton1Click:Connect(function()
+KillAllPlaneEngines.MouseButton1Click:Connect(
+    function()
+        local Planes = workspace.Planes:GetDescendants()
 
-local Planes = workspace.Planes:GetDescendants()
-
-for i,v in pairs(Planes) do
-
-if v.Name == "SetEngine" then
-	
-	v:FireServer(false)
-	print("Fired "..(v.Name))
-	print(v.Parent.Parent)
-
-end
-end
-
-end)
+        for i, v in pairs(Planes) do
+            if v.Name == "SetEngine" then
+                v:FireServer(false)
+                print("Fired " .. (v.Name))
+                print(v.Parent.Parent)
+            end
+        end
+    end
+)
 
 function ConstantRepair(BoolVal)
-repeat
-wait(0.1)
-RepairShip1()
-until BoolVal.Value == false
+    repeat
+        wait(0.1)
+        RepairShip1()
+    until BoolVal.Value == false
 end
 
-
-
-local FireDistance = CreateGuiElement("TextButton","Fire Click Distance", "FCD", 11)
-
+local FireDistance = CreateGuiElement("TextButton", "Fire Click Distance", "FCD", 11)
 
 local IndustructibleShip = CreateGuiElement("Frame", nil, "Frame", 11)
 IndustructibleShip.Parent = ScrollingFrame
@@ -439,94 +390,81 @@ F.TextSize = 14.000
 local RTT = Instance.new("UIListLayout")
 RTT.Parent = IndustructibleShip
 RTT.FillDirection = Enum.FillDirection.Horizontal
-T.MouseButton1Click:Connect(function()
-	T.BackgroundColor = BrickColor.Green()
-	F.BackgroundColor = BrickColor.White()
-	Bool1.Value = true
-	ConstantRepair(Bool1)
-end)
-F.MouseButton1Click:Connect(function()
-	F.BackgroundColor = BrickColor.Green()
-	T.BackgroundColor = BrickColor.White()
-	Bool1.Value = false
-end)
+T.MouseButton1Click:Connect(
+    function()
+        T.BackgroundColor = BrickColor.Green()
+        F.BackgroundColor = BrickColor.White()
+        Bool1.Value = true
+        ConstantRepair(Bool1)
+    end
+)
+F.MouseButton1Click:Connect(
+    function()
+        F.BackgroundColor = BrickColor.Green()
+        T.BackgroundColor = BrickColor.White()
+        Bool1.Value = false
+    end
+)
 
 function TeleportToPiratesBase()
-game:GetService("ReplicatedStorage").Missions.AirfieldTeleportPirates:FireServer(game:GetService("Players").LocalPlayer)
+    game:GetService("ReplicatedStorage").Missions.AirfieldTeleportPirates:FireServer(
+        game:GetService("Players").LocalPlayer
+    )
 end
-local TeleportToPBase = CreateGuiElement('TextButton', 'Teleport To Pirate Base', 'Teleport To Pirate Base', 12)
+local TeleportToPBase = CreateGuiElement("TextButton", "Teleport To Pirate Base", "Teleport To Pirate Base", 12)
 TeleportToPBase.MouseButton1Click:Connect(TeleportToPiratesBase)
-local goToShip = CreateGuiElement('TextButton', 'Go To Ship', 'Go To Ship', 13)
-goToShip.MouseButton1Click:Connect(function()
-    GoToShip(ShipNameVal.Value)
-end)
+local goToShip = CreateGuiElement("TextButton", "Go To Ship", "Go To Ship", 13)
+goToShip.MouseButton1Click:Connect(
+    function()
+        GoToShip(ShipNameVal.Value)
+    end
+)
 function GetPlane()
     local plr = game.Players.LocalPlayer
     local Planes = workspace.Planes:GetChildren()
-    for i,v in pairs(Planes) do
-      if v.Important:FindFirstChild("PilotSeat") then
-          local PilotSeat = v.Important:FindFirstChild("PilotSeat")
-          if PilotSeat:FindFirstChild("SeatWeld") then
-              local SeatWeld = PilotSeat:FindFirstChild("SeatWeld")
-              if SeatWeld.Part1.Parent.Name == plr.Name then
-                  return SeatWeld.Parent.Parent.Parent
-             end      
-            end  
-        end  
-    end    
+    for i, v in pairs(Planes) do
+        if v.Important:FindFirstChild("PilotSeat") then
+            local PilotSeat = v.Important:FindFirstChild("PilotSeat")
+            if PilotSeat:FindFirstChild("SeatWeld") then
+                local SeatWeld = PilotSeat:FindFirstChild("SeatWeld")
+                if SeatWeld.Part1.Parent.Name == plr.Name then
+                    return SeatWeld.Parent.Parent.Parent
+                end
+            end
+        end
+    end
 end
 function RepairPlaneFunc()
     local PlaneParts = GetPlane():GetDescendants()
     local Plr = game.Players.LocalPlayer
-	local b = Plr:FindFirstChild("Backpack")
-	local RepairT = b.Repair.Server.Repair
-	for i, plane in pairs(PlaneParts) do
-		if plane.ClassName == "Part" then
-			RepairT:FireServer(plane)
-			
-			 elseif plane.ClassName == "UnionOperation" then
-			 RepairT:FireServer(plane)
-		
-			
-			elseif plane.ClassName == "WedgePart" then
-			 RepairT:FireServer(plane)
-			
-			
-			elseif plane.ClassName == "CornerWedgePart" then
-			 RepairT:FireServer(plane)
-			 
-			
-			elseif plane.ClassName == "MeshPart" then
-			RepairT:FireServer(plane)
-			
-   end end 
-end    
-local RepairPlane = CreateGuiElement('TextButton', 'Repair Plane', 'Repair Plane', 14)
+    local b = Plr:FindFirstChild("Backpack")
+    local RepairT = b.Repair.Server.Repair
+    for i, plane in pairs(PlaneParts) do
+        if plane.ClassName == "Part" then
+            RepairT:FireServer(plane)
+        elseif plane.ClassName == "UnionOperation" then
+            RepairT:FireServer(plane)
+        elseif plane.ClassName == "WedgePart" then
+            RepairT:FireServer(plane)
+        elseif plane.ClassName == "CornerWedgePart" then
+            RepairT:FireServer(plane)
+        elseif plane.ClassName == "MeshPart" then
+            RepairT:FireServer(plane)
+        end
+    end
+end
+local RepairPlane = CreateGuiElement("TextButton", "Repair Plane", "Repair Plane", 14)
 RepairPlane.MouseButton1Click:Connect(RepairPlaneFunc)
-UIS.InputBegan:Connect(function(Input, IsChatting)
-    if Input.KeyCode == Enum.KeyCode.J then
-        RepairPlaneFunc()
-    end    
-end)   
-local Breakout =  CreateGuiElement('TextButton', 'Breakout', 'Breakout', 15)
-Breakout.MouseButton1Click:Connect(function()
-game:GetService("ReplicatedStorage").Jail.Breakout:FireServer()    
-end)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
+UIS.InputBegan:Connect(
+    function(Input, IsChatting)
+        if Input.KeyCode == Enum.KeyCode.J then
+            RepairPlaneFunc()
+        end
+    end
+)
+local Breakout = CreateGuiElement("TextButton", "Breakout", "Breakout", 15)
+Breakout.MouseButton1Click:Connect(
+    function()
+        game:GetService("ReplicatedStorage").Jail.Breakout:FireServer()
+    end
+)
