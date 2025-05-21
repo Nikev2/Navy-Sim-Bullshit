@@ -289,7 +289,6 @@ end
 
 local plr = game.Players.LocalPlayer
 function FakeScript()
-    local Fake_Script = Instance.new("LocalScript", PARENT)
     local UIS = game:GetService("UserInputService")
     local BackSlash = Enum.KeyCode.BackSlash
     local function BS()
@@ -337,8 +336,7 @@ function FakeScript()
         end
     )
 end
-coroutine.wrap(FakeScript)()
-
+FakeScript()
 local KillAllPlaneEngines = CreateGuiElement("TextButton", "Kill All Planes", "KillAllPlanes", 10)
 
 KillAllPlaneEngines.MouseButton1Click:Connect(
