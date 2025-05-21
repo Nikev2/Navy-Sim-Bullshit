@@ -17,25 +17,7 @@ function randomString()
 	end
 	return table.concat(array)
 end
-function ProtectGui(GUI)
-    local PARENT = nil
-	
-    if (not is_sirhurt_closure) and (syn and syn.protect_gui) then
-        local Main = GUI
-        Main.Name = randomString()
-        syn.protect_gui(Main)
-        Main.Parent = COREGUI
-        PARENT = Main
-    elseif COREGUI:FindFirstChild("RobloxGui") then
-        PARENT = COREGUI.RobloxGui
-    else
-        local Main = GUI
-        Main.Name = randomString()
-        Main.Parent = COREGUI
-        PARENT = Main
-    end
-	print("Gui Protected")
-end
+
 -- additional
 local utility = {}
 
@@ -52,8 +34,34 @@ local themes = {
 
 do
 	function utility:Create(instance, properties, children)
-		local object = Instance.new(instance)
-		
+		local object = nil
+		if instance == "ScreenGui" then
+			local PARENT = nil
+			
+			local COREGUI = game.CoreGui
+			if (not is_sirhurt_closure) and (syn and syn.protect_gui) then
+        			local Main = Instance.new(instance)
+       			 	Main.Name = randomString()
+        			syn.protect_gui(Main)
+        			Main.Parent = COREGUI
+        			PARENT = Main
+				object = Main
+			elseif COREGUI:FindFirstChild("RobloxGui") then
+        			PARENT = COREGUI.RobloxGui
+				object = Instance.new(instance)
+				object.Parent = PARENT
+			else
+        			local Main = Instance.new(instance)
+        			Main.Name = randomString()
+        			Main.Parent = COREGUI
+        			PARENT = Main
+				object = Main
+    			end
+			
+		print("Gui Protected")
+		else
+			object = Instance.new(instance)
+		end
 		for i, v in pairs(properties or {}) do
 			object[i] = v
 			
@@ -240,13 +248,9 @@ do
 	-- new classes
 	
 	function library.new(title)
-		(function()
-			local container = utility:Create("ScreenGui", {
+		local container = utility:Create("ScreenGui", {
 			Name = title,
-		}
-		ProtectGui(container)
-		return container
-		end)(), {
+		, {
 			utility:Create("ImageLabel", {
 				Name = "Main",
 				BackgroundTransparency = 1,
